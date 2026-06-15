@@ -1,8 +1,8 @@
 package com.niedzszym.carbon_intensity_api.client;
 
 
-import com.niedzszym.carbon_intensity_api.client.CarbonIntensityClient;
 import com.niedzszym.carbon_intensity_api.client.dto.CiFuelMix;
+import com.niedzszym.carbon_intensity_api.client.dto.CiGenerationData;
 import com.niedzszym.carbon_intensity_api.client.dto.CiGenerationResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,8 +36,10 @@ class CarbonIntensityClientTest {
         String from = "2024-01-01T00:00Z";
         String to = "2024-01-01T00:30Z";
 
-        CiGenerationResponse expectedResponse = new CiGenerationResponse(from, to,
-                List.of(new CiFuelMix("biomass", 5.5), new CiFuelMix("nuclear", 21.0)));
+        CiGenerationResponse expectedResponse = new CiGenerationResponse(
+                List.of(new CiGenerationData(from, to,
+                        List.of(new CiFuelMix("biomass", 5.5), new CiFuelMix("nuclear", 21.0))))
+        );
 
         when(restTemplate.getForObject(
                 "https://api.carbonintensity.org.uk/generation/{from}/{to}",
