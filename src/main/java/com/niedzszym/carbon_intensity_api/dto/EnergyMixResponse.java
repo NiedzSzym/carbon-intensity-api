@@ -1,8 +1,10 @@
 package com.niedzszym.carbon_intensity_api.dto;
 
+import com.niedzszym.carbon_intensity_api.model.DailyEnergyMix;
+
 public record EnergyMixResponse(
-    DailyEnergyMixResponse today,
-    DailyEnergyMixResponse tomorrow,
-    DailyEnergyMixResponse dayAfterTomorrow
+    DailyEnergyMix today,
+    DailyEnergyMix tomorrow,
+    DailyEnergyMix dayAfterTomorrow
 ) {
 }
