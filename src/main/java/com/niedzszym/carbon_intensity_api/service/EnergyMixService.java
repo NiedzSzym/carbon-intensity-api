@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -84,6 +85,19 @@ public class EnergyMixService {
     }
 
     private EnergyMixResponse buildResponse(List<DailyEnergyMix> dailyMixes) {
-        return new EnergyMixResponse(dailyMixes.get(0), dailyMixes.get(1), dailyMixes.get(2));
+        LocalDate today = LocalDate.now(ZoneId.of("Europe/London"));
+        Map<LocalDate, DailyEnergyMix> mixByDate = dailyMixes.stream()
+                .collect(Collectors.toMap(DailyEnergyMix::date, Function.identity()));
+
+        DailyEnergyMix todayMix = mixByDate.get(today);
+        if (todayMix == null) {
+            throw new ExternalApiException("No energy mix data available for today");
+        }
+
+        return new EnergyMixResponse(
+                todayMix,
+                mixByDate.get(today.plusDays(1)),
+                mixByDate.get(today.plusDays(2))
+        );
     }
 }
