@@ -15,7 +15,7 @@ public class EnergyMixController {
     }
 
     @GetMapping("/energy-mix")
-    public EnergyMixResponse getThreeDaysEnergyMix() {
+    public EnergyMixResponse getThreeDayEnergyMix() {
         return energyMixService.getThreeDayEnergyMix();
     }
 }
