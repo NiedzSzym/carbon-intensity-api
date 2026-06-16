@@ -34,9 +34,9 @@ class ChargingWindowServiceTest {
 
     @Test
     void shouldReturnOptimalWindow_whenCleanEnergyPeaksInMiddle() {
-        // given: 8 interwałów, 3-godzinne okno (6 interwałów)
-        // wartości clean energy: 10, 20, 50, 60, 70, 80, 30, 20
-        // windows: [0-5]=48.33, [1-6]=51.67, [2-7]=51.67 → wygrywa pierwsze (startIdx=1)
+        // given: 8 intervals, 3-hour window (6 intervals)
+        // values: 10, 20, 50, 60, 70, 80, 30, 20
+        // windows: [0-5]=48.33, [1-6]=51.67, [2-7]=51.67 → first max (startIdx=1)
         List<EnergyInterval> intervals = new ArrayList<>();
         LocalDateTime base = LocalDateTime.of(2026, 6, 16, 0, 0);
         intervals.add(buildInterval(base, 10.0));
@@ -64,8 +64,8 @@ class ChargingWindowServiceTest {
     void shouldReturnOptimalWindow_whenCleanEnergyIsHighestAtStart() {
         List<EnergyInterval> intervals = new ArrayList<>();
         LocalDateTime base = LocalDateTime.of(2026, 6, 16, 0, 0);
-        // wartości: 90, 80, 70, 40, 30, 20, 10, 10
-        // k=4 (2 godziny), najlepsze okno: indeksy 0-3, avg=70
+        // values: 90, 80, 70, 40, 30, 20, 10, 10
+        // k=4 (2 hours), best window: indices 0-3, avg=70
         intervals.add(buildInterval(base, 90.0));
         intervals.add(buildInterval(base.plusMinutes(30), 80.0));
         intervals.add(buildInterval(base.plusMinutes(60), 70.0));
@@ -89,8 +89,8 @@ class ChargingWindowServiceTest {
     void shouldReturnOptimalWindow_whenCleanEnergyIsHighestAtEnd() {
         List<EnergyInterval> intervals = new ArrayList<>();
         LocalDateTime base = LocalDateTime.of(2026, 6, 16, 0, 0);
-        // wartości: 10, 20, 30, 60, 80, 90
-        // k=4, okno 2-5: avg=65
+        // values: 10, 20, 30, 60, 80, 90
+        // k=4, window 2-5: avg=65
         intervals.add(buildInterval(base, 10.0));
         intervals.add(buildInterval(base.plusMinutes(30), 20.0));
         intervals.add(buildInterval(base.plusMinutes(60), 30.0));
@@ -145,8 +145,8 @@ class ChargingWindowServiceTest {
     void shouldHandleOneHourWindow() {
         List<EnergyInterval> intervals = new ArrayList<>();
         LocalDateTime base = LocalDateTime.of(2026, 6, 16, 0, 0);
-        // wartości: 10, 80, 20, 30
-        // k=2 (1h), najlepsze okno: indeksy 1-2, avg=50
+        // values: 10, 80, 20, 30
+        // k=2 (1h), best window: indices 1-2, avg=50
         intervals.add(buildInterval(base, 10.0));
         intervals.add(buildInterval(base.plusMinutes(30), 80.0));
         intervals.add(buildInterval(base.plusMinutes(60), 20.0));

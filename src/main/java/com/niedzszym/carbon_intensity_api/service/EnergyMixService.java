@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class EnergyMixService {
-    private final CarbonIntensityIntervalProvider intervalProvider;  // ← nowe pole
+    private final CarbonIntensityIntervalProvider intervalProvider;
+
     public EnergyMixService(CarbonIntensityIntervalProvider intervalProvider) {
         this.intervalProvider = intervalProvider;
     }

@@ -14,7 +14,7 @@ public class CorsConfig {
                 registry.addMapping("/**")
                         .allowedOrigins(
                                 "http://localhost:4200",
-                                "https://carbon-intensity-ui.onrender.com/"
+                                "https://carbon-intensity-ui.onrender.com"
                         )
                         .allowedMethods("GET", "POST", "OPTIONS")
                         .allowedHeaders("*");
